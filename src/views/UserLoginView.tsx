@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Button } from "../components/common/ButtonComponent/Button";
@@ -15,6 +15,8 @@ export const UserLoginView = () => {
     id: "",
   };
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ export const UserLoginView = () => {
       return
     }
 
+    setIsLoading(true)
+
     try {
       const resp = await axios.get(
         `https://gorest.co.in/public/v2/users/${form.id}`,
@@ -36,16 +40,14 @@ export const UserLoginView = () => {
           },
         }
       );
-      console.log('flag1')
-      console.log(resp.status)
 
-      if (resp.status === 200) {
-        console.log(resp.data)
-        login(resp.data)
-      };
+      if (resp.status === 200) login(resp.data)
       navigate("/posts", { replace: true });
+      setIsLoading(false)
+
     } catch (error) {
       console.log(error);
+      setIsLoading(false)
     }
   };
 
@@ -60,11 +62,21 @@ export const UserLoginView = () => {
         <div className="flex justify-end my-2">
           <Link to='/register' className="text-blue-700 underline">Register</Link>
         </div>
-        <Button
-          className="bg-green-500 w-1/2 text-lg font-bold text-white mt-2"
-          label="Login"
-          onClick={() => handleSubmit(formState)}
-        />
+        {
+          isLoading ?
+            <Button
+              className="bg-green-500 w-1/2 text-lg font-bold text-white"
+              label="Loading"
+              disabled={true}
+            />
+            :
+
+            <Button
+              className="bg-green-500 w-1/2 text-lg font-bold text-white mt-2"
+              label="Login"
+              onClick={() => handleSubmit(formState)}
+            />
+        }
       </div>
     </div>
   );

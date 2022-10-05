@@ -6,8 +6,6 @@ import { Button } from "../common/ButtonComponent/Button";
 import { TextArea } from "../common/InputComponent/TextArea";
 import { TextInputComponent } from "../common/InputComponent/TextInputComponent";
 
-
-
 export const NewPostCard = ({ setter }: any) => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -23,7 +21,7 @@ export const NewPostCard = ({ setter }: any) => {
   const handleSubmit = async (form: {}) => {
     setIsLoading(true)
     try {
-      const resp = await axios.post(
+      await axios.post(
         `https://gorest.co.in/public/v2/users/${user.id}/posts`,
         form,
         {
@@ -43,7 +41,7 @@ export const NewPostCard = ({ setter }: any) => {
   };
 
   return (
-    <div className="shadow-box w-10/12 rounded-md flex flex-col items-center">
+    <div className="shadow-box w-10/12 rounded-md flex flex-col items-center justify-between transform transition duration-300 hover:scale-105">
       <div className="flex items-center py-4 px-2 border-b-2 border-gray-200 w-full">
         <TextInputComponent
           onChange={onInputChange}

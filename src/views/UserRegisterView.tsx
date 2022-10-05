@@ -1,11 +1,16 @@
 import axios from "axios";
+import { useState } from "react";
 import { BiUser } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/common/ButtonComponent/Button";
 import { TextInputComponent } from "../components/common/InputComponent/TextInputComponent";
 import { useForm } from "../hooks";
 
 export const UserRegisterView = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate();
+
   const initialForm = {
     name: "",
     email: "",
@@ -16,8 +21,9 @@ export const UserRegisterView = () => {
   const { formState, onInputChange } = useForm(initialForm);
 
   const handleSubmit = async (form: {}) => {
+    setIsLoading(true)
     try {
-      await axios.post(
+      const resp = await axios.post(
         "https://gorest.co.in/public/v2/users",
         form,
         {
@@ -26,8 +32,14 @@ export const UserRegisterView = () => {
           },
         }
       );
+
+      console.log(resp.data)
+      alert(`userid: ${resp.data.id} `)
+      setIsLoading(false)
+      navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
+      setIsLoading(false)
     }
   };
 
@@ -66,12 +78,21 @@ export const UserRegisterView = () => {
           onChange={onInputChange}
           label="Gender"
         />
+        {
+          isLoading ?
+            <Button
+              className="bg-green-500 w-1/2 text-lg font-bold text-white"
+              label="Loading"
+              disabled={true}
+            />
+            :
+            <Button
+              className="bg-green-500 w-1/2 text-lg font-bold text-white"
+              label="Register"
+              onClick={() => handleSubmit(formState)}
+            />
+        }
 
-        <Button
-          className="bg-green-500 w-1/2 text-lg font-bold text-white"
-          label="Register"
-          onClick={() => handleSubmit(formState)}
-        />
       </div>
     </div>
   );

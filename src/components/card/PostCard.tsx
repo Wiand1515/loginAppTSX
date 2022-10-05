@@ -8,7 +8,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
 
 export const PostCard = ({ title, body, onClick }: Props) => {
   return (
-    <div className="shadow-box w-10/12 rounded-md flex flex-col justify-between items-center">
+    <div className="shadow-box w-10/12 rounded-md flex flex-col justify-between items-center transform transition duration-300 hover:scale-105">
       <div className="flex items-center py-4 px-2 border-b-2 border-gray-200 w-full">
         <img
           src={`https://picsum.photos/200`}
