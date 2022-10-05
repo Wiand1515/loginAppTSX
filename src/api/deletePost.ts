@@ -4,7 +4,7 @@ export const deletePost = async (postID:number) => {
   try {
     await axios.delete(`https://gorest.co.in/public/v2/posts/${postID}`, {
       headers: {
-        Authorization: `Bearer 3ea635f926302866c560b78fe90d2c166b6460808415307840ba3ef5fcc6d480`,
+        Authorization: `Bearer ${process.env.REACT_GOREST_API_KEY}`,
       },
     });
   } catch (error) {

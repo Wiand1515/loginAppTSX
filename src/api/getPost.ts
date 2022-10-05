@@ -5,7 +5,7 @@ export const getPosts = async (userID: number) => {
     `https://gorest.co.in/public/v2/users/${userID}/posts`,
     {
       headers: {
-        Authorization: `Bearer 3ea635f926302866c560b78fe90d2c166b6460808415307840ba3ef5fcc6d480`,
+        Authorization: `Bearer ${process.env.REACT_GOREST_API_KEY}`,
       },
     }
   );
