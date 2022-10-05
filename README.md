@@ -33,3 +33,4 @@ To run the program use this command:
 
 This should open your browser and allow you to use the app.
 
+*** Before run `npm start` command make sure to create and put the token at your local .env file.
