@@ -33,7 +33,6 @@ export const UserRegisterView = () => {
         }
       );
 
-      console.log(resp.data)
       alert(`userid: ${resp.data.id} `)
       setIsLoading(false)
       navigate("/", { replace: true });
